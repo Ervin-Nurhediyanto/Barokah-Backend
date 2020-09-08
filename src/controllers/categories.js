@@ -11,7 +11,7 @@ const categories = {
         if (result != '') {
           helpers.response(res, null, result, 200, null)
         } else {
-          helpers.response(res, null, 'Kategori tidak ditemukan', 404, 'Error')
+          helpers.response(res, null, 'Category Not Found', 404, 'Error')
         }
       })
       .catch((err) => {
@@ -32,7 +32,7 @@ const categories = {
           // client.setex('getallcategory', 60 * 60 * 12, JSON.stringify(result))
           helpers.response(res, page, result, 200, null)
         } else {
-          helpers.response(res, null, 'Kategori tidak ditemukan', 404, 'Error')
+          helpers.response(res, null, 'Category Not Found', 404, 'Error')
         }
       })
       .catch((err) => {
