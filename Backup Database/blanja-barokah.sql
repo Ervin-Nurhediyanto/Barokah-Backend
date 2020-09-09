@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Sep 2020 pada 16.11
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.4.9
+-- Waktu pembuatan: 09 Sep 2020 pada 13.00
+-- Versi server: 10.4.10-MariaDB
+-- Versi PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -65,20 +66,31 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
   `image` varchar(256) NOT NULL,
+  `image2` varchar(256) NOT NULL,
+  `image3` varchar(256) NOT NULL,
+  `image4` varchar(256) NOT NULL,
+  `image5` varchar(256) NOT NULL,
+  `image6` varchar(256) NOT NULL,
   `price` int(11) NOT NULL,
+  `color` varchar(64) NOT NULL,
+  `category` varchar(64) NOT NULL,
+  `size` int(11) NOT NULL,
+  `brand` varchar(256) NOT NULL,
   `author` varchar(64) NOT NULL,
   `rate` int(11) NOT NULL,
   `condition` varchar(64) NOT NULL,
+  `stock` int(11) NOT NULL,
   `description` text NOT NULL,
-  `idCategory` int(11) NOT NULL
+  `idCategory` int(11) NOT NULL,
+  `idSeller` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `image`, `price`, `author`, `rate`, `condition`, `description`, `idCategory`) VALUES
-(1, 'Men\'s formal suit - Black & White', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQj6deO2OE3dF_1tMehUn5IFkKhi3IJqI7aEw&usqp=CAU', 40000, 'Zalora Cloth', 10, 'New', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat.', 1);
+INSERT INTO `products` (`id`, `name`, `image`, `image2`, `image3`, `image4`, `image5`, `image6`, `price`, `color`, `category`, `size`, `brand`, `author`, `rate`, `condition`, `stock`, `description`, `idCategory`, `idSeller`) VALUES
+(1, 'Men\'s formal suit - Black & White', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQj6deO2OE3dF_1tMehUn5IFkKhi3IJqI7aEw&usqp=CAU', '', '', '', '', '', 40000, 'black', 'man', 28, 'adidas', 'Zalora Cloth', 10, 'New', 10, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat.', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -88,11 +100,17 @@ INSERT INTO `products` (`id`, `name`, `image`, `price`, `author`, `rate`, `condi
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `roleId` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `email` varchar(64) NOT NULL,
+  `image` varchar(256) NOT NULL,
+  `gender` int(11) NOT NULL,
+  `dateOfBirth` date NOT NULL,
   `phoneNumber` int(11) NOT NULL,
   `storeName` varchar(64) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `storeDescription` varchar(256) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `address` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
