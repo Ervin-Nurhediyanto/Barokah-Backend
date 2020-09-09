@@ -39,21 +39,34 @@ const products = {
 
   updateProduct: (req, res) => {
     const id = req.params.id
-    const { name, price, author, rate, condition, description, idCategory } = req.body
+    const { name, price, color, category, size, author, rate, condition, description, idCategory, idSeller } = req.body
 
     const data = {
       name,
       price,
+      color,
+      category,
+      size,
       author,
       rate,
       condition,
       description,
-      idCategory
+      idCategory,
+      idSeller
     }
 
     if (req.file) {
       data.image = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image2 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image3 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image4 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image5 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image6 = process.env.BASE_URL + 'uploads/' + req.file.filename
     }
+
+    // if (req.file) {
+    //   data.image = process.env.BASE_URL + 'uploads/' + req.file.filename
+    // }
 
     productModels.updateProduct(id, data)
       .then((result) => {
@@ -80,17 +93,31 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    const { name, price, author, rate, condition, description, idCategory } = req.body
+    const { name, price, color, category, size, author, rate, condition, description, idCategory, idSeller } = req.body
     const data = {
       name,
-      image: process.env.BASE_URL + 'uploads/' + req.file.filename,
       price,
+      color,
+      category,
+      size,
       author,
       rate,
       condition,
       description,
-      idCategory
+      idCategory,
+      idSeller
+      // image: process.env.BASE_URL + 'uploads/' + req.file.filename,
     }
+
+    if (req.file) {
+      data.image = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image2 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image3 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image4 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image5 = process.env.BASE_URL + 'uploads/' + req.file.filename
+      // data.image6 = process.env.BASE_URL + 'uploads/' + req.file.filename
+    }
+
     productModels.insertProduct(data)
       .then((result) => {
         helpers.response(res, null, result, 200, null)
