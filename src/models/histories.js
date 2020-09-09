@@ -3,7 +3,7 @@ const connection = require('../configs/db')
 const histories = {
   getHistoryById: (id) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM product INNER JOIN category ON product.idCategory = category.id INNER JOIN history ON history.idproduct = product.id WHERE history.id = ?', id, (err, result) => {
+      connection.query('SELECT * FROM products INNER JOIN category ON products.idCategory = category.id INNER JOIN history ON history.idproduct = products.id WHERE history.id = ?', id, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -26,10 +26,10 @@ const histories = {
       const year = 'DATE_FORMAT(history.date, "%Y") AS "year"'
 
       if (search != null) {
-        searchHistory = `WHERE product.name LIKE '%${search}%'`
+        searchHistory = `WHERE products.name LIKE '%${search}%'`
       }
       if (group != null) {
-        groupSql = ',SUM(product.price*history.countItem) AS "amount"'
+        groupSql = ',SUM(products.price*history.countItem) AS "amount"'
         groupHistory = `GROUP BY ${group}`
       }
       if (sort != null) {
@@ -49,7 +49,7 @@ const histories = {
         }
       }
 
-      connection.query(`SELECT *, product.price*history.countItem AS 'Total', ${date}, ${day}, ${month}, ${year}, history.id AS 'id'${groupSql} FROM product INNER JOIN category ON product.idCategory = category.id INNER JOIN history ON history.idproduct = product.id INNER JOIN user ON user.id = history.idUser ${searchHistory} ${groupHistory} ${sortHistory} ${pageHistory}`, (err, result) => {
+      connection.query(`SELECT *, products.price*history.countItem AS 'Total', ${date}, ${day}, ${month}, ${year}, history.id AS 'id'${groupSql} FROM products INNER JOIN category ON products.idCategory = category.id INNER JOIN history ON history.idproduct = products.id INNER JOIN user ON user.id = history.idUser ${searchHistory} ${groupHistory} ${sortHistory} ${pageHistory}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

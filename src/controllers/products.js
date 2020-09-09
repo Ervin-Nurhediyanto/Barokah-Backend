@@ -10,7 +10,7 @@ const products = {
         if (result != '') {
           helpers.response(res, null, result, 200, null)
         } else {
-          helpers.response(res, null, 'Produk yang anda cari tidak ada', 404, 'error')
+          helpers.response(res, null, 'Product not found', 404, 'error')
         }
       })
       .catch((err) => {
@@ -29,7 +29,7 @@ const products = {
         if (result != '') {
           helpers.response(res, page, result, 200, null)
         } else {
-          helpers.response(res, page, 'Produk yang anda cari tidak ada', 404, 'error')
+          helpers.response(res, page, 'Product not found', 404, 'error')
         }
       })
       .catch((err) => {
@@ -39,11 +39,15 @@ const products = {
 
   updateProduct: (req, res) => {
     const id = req.params.id
-    const { name, price, idCategory } = req.body
+    const { name, price, author, rate, condition, description, idCategory } = req.body
 
     const data = {
       name,
       price,
+      author,
+      rate,
+      condition,
+      description,
       idCategory
     }
 
@@ -65,7 +69,7 @@ const products = {
     const id = req.params.id
     productModels.deleteProduct(id)
       .then((result) => {
-        if (result != 'Data Tidak Ditemukan') {
+        if (result != 'Data Not Found') {
           helpers.response(res, null, result, 200, null)
         } else {
           helpers.response(res, null, result, 404, 'Not Found')
@@ -76,11 +80,15 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    const { name, price, idCategory } = req.body
+    const { name, price, author, rate, condition, description, idCategory } = req.body
     const data = {
       name,
       image: process.env.BASE_URL + 'uploads/' + req.file.filename,
       price,
+      author,
+      rate,
+      condition,
+      description,
       idCategory
     }
     productModels.insertProduct(data)
