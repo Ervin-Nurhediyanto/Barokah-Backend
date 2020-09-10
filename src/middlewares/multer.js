@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
 })
 
 function upload (req, res, next) {
-  const uploadFile = multer({
+  const uploadFiles = multer({
     storage: storage,
     limits: { fileSize: 1000000 },
     fileFilter: function (req, file, cb) {
@@ -21,9 +21,9 @@ function upload (req, res, next) {
         cb(null, true)
       }
     }
-  }).single('image')
+  }).array('image', 2)
 
-  uploadFile(req, res, function (err) {
+  uploadFiles(req, res, function (err) {
     if (err) {
       if (err == 'jpg Only!') {
         return helpers.response(res, null, 'jpg Only!', 202, 'processing has not been completed')

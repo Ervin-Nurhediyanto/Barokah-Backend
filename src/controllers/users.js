@@ -4,27 +4,32 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-  register: (req, res) => {
-    const { email, password, firstName, lastName } = req.body
+  registerSeller: (req, res) => {
+    const { name, email, phoneNumber, storeName, password } = req.body
 
     const data = {
+      name,
       email,
+      phoneNumber,
+      storeName,
       password,
-      firstName,
-      lastName,
-      roleId: 2,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      roleId: 1,
+      image: null,
+      gender: null,
+      dateOfBirth: null,
+      storeDescription: null,
+      address: null
     }
+
     bcrypt.genSalt(10, function (_err, salt) {
       bcrypt.hash(data.password, salt, function (_err, hash) {
         data.password = hash
         modelUser.register(data)
           .then((result) => {
-            if (result == 'email sudah terdaftar') {
+            if (result == 'Email is already exists') {
               helpers.response(res, null, result, 403, 'Forbidden')
             } else {
-              helpers.response(res, null, 'Register User Success', 201, null)
+              helpers.response(res, null, 'Register Seller Success', 201, null)
             }
           })
           .catch((err) => {
@@ -34,27 +39,24 @@ module.exports = {
     })
   },
 
-  registerAdmin: (req, res) => {
-    const { email, password, firstName, lastName } = req.body
+  registerCustommer: (req, res) => {
+    const { name, email, password } = req.body
 
     const data = {
+      name,
       email,
       password,
-      firstName,
-      lastName,
-      roleId: 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      roleId: 2
     }
     bcrypt.genSalt(10, function (_err, salt) {
       bcrypt.hash(data.password, salt, function (_err, hash) {
         data.password = hash
         modelUser.register(data)
           .then((result) => {
-            if (result == 'email sudah terdaftar') {
-              helpers.response(res, null, 'email sudah terdaftar', 201, null)
+            if (result == 'Email is already exists') {
+              helpers.response(res, null, result, 403, 'Forbidden')
             } else {
-              helpers.response(res, null, 'Register Admin Success', 201, 'Created')
+              helpers.response(res, null, 'Register Custommer Success', 201, null)
             }
           })
           .catch((err) => {
@@ -64,16 +66,16 @@ module.exports = {
     })
   },
 
-  login: (req, res) => {
+  loginSeller: (req, res) => {
     const { email, password } = req.body
     modelUser.login(email)
       .then((result) => {
-        if (result.length < 1) return helpers.response(res, null, 'email not found!!', 401, null)
+        if (result.length < 1) return helpers.response(res, null, 'Email not found!', 401, null)
 
         const user = result[0]
         const hash = user.password
         bcrypt.compare(password, hash).then((resCompare) => {
-          if (!resCompare) return helpers.response(res, null, 'password wrong !!', 401, null)
+          if (!resCompare) return helpers.response(res, null, 'Password wrong!', 401, null)
           const payload = {
             id: user.id,
             email: user.email,
@@ -84,16 +86,68 @@ module.exports = {
             user.token = token
 
             delete user.password
-            delete user.createdAt
-            delete user.updatedAt
 
-            if (user.roleId !== 1) {
-              user.roleId = 'Guest User'
+            if (user.gender == 1) {
+              user.gender = 'male'
+            } else if (user.gender == 2) {
+              user.gender = 'female'
             } else {
-              user.roleId = 'Admin'
+              user.gender = null
             }
 
-            helpers.response(res, null, user, 200)
+            if (user.roleId !== 1) {
+              helpers.response(res, null, 'You are not a seller', 401)
+            } else {
+              user.roleId = 'Seller'
+              helpers.response(res, null, user, 200)
+            }
+          })
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+
+  loginCustommer: (req, res) => {
+    const { email, password } = req.body
+    modelUser.login(email)
+      .then((result) => {
+        if (result.length < 1) return helpers.response(res, null, 'Email not found!', 401, null)
+
+        const user = result[0]
+        const hash = user.password
+        bcrypt.compare(password, hash).then((resCompare) => {
+          if (!resCompare) return helpers.response(res, null, 'Password wrong!', 401, null)
+          const payload = {
+            id: user.id,
+            email: user.email,
+            roleId: user.roleId
+          }
+
+          jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '3h' }, (_err, token) => {
+            user.token = token
+
+            delete user.password
+            delete user.phoneNumber
+            delete user.storeName
+            delete user.storeDescription
+            delete user.address
+
+            if (user.gender == 1) {
+              user.gender = 'male'
+            } else if (user.gender == 2) {
+              user.gender = 'female'
+            } else {
+              user.gender = null
+            }
+
+            if (user.roleId !== 1) {
+              user.roleId = 'Custommer'
+              helpers.response(res, null, user, 200)
+            } else {
+              helpers.response(res, null, 'You are not a custommer', 401)
+            }
           })
         })
       })

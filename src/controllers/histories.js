@@ -11,7 +11,7 @@ const histories = {
         if (result != '') {
           helpers.response(res, null, result, 200, null)
         } else {
-          helpers.response(res, null, 'Data Search Not Found', 404, 'Error')
+          helpers.response(res, null, 'Data search not found', 404, 'Error')
         }
       })
       .catch((err) => {
@@ -36,7 +36,7 @@ const histories = {
           // client.setex('getallhistory', 60 * 60 * 12, JSON.stringify(result))
           helpers.response(res, page, result, 200, null)
         } else {
-          helpers.response(res, null, 'Data Search Not Found', 404, 'Error')
+          helpers.response(res, null, 'Data search not found', 404, 'Error')
         }
       })
       .catch((err) => {

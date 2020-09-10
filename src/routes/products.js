@@ -1,14 +1,15 @@
+
 const express = require('express')
 const productController = require('../controllers/products')
 const router = express.Router()
-// const { verifyAccess, verifyAccessAdmin } = require('../middlewares/auth')
+const { verifyAccess, verifyAccessSeller } = require('../middlewares/auth')
 const { upload } = require('../middlewares/multer')
 
 router
-  .get('/:id', productController.getProductById)
-  .get('/', productController.getAllproduct)
-  .post('/', upload, productController.insertProduct)
-  .patch('/:id', upload, productController.updateProduct)
-  .delete('/:id', productController.deleteProduct)
+  .get('/:id', verifyAccess, productController.getProductById)
+  .get('/', verifyAccess, productController.getAllproduct)
+  .post('/', verifyAccessSeller, upload, productController.insertProduct)
+  .patch('/:id', verifyAccessSeller, upload, productController.updateProduct)
+  .delete('/:id', verifyAccessSeller, productController.deleteProduct)
 
 module.exports = router

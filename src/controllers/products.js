@@ -39,16 +39,23 @@ const products = {
 
   updateProduct: (req, res) => {
     const id = req.params.id
-    const { name, price, author, rate, condition, description, idCategory } = req.body
+    const { name, price, color, category, size, brand, author, rate, chat, condition, stock, description, idCategory, idSeller } = req.body
 
     const data = {
       name,
       price,
+      color,
+      category,
+      size,
+      brand,
       author,
       rate,
+      chat,
       condition,
+      stock,
       description,
-      idCategory
+      idCategory,
+      idSeller
     }
 
     if (req.file) {
@@ -69,7 +76,7 @@ const products = {
     const id = req.params.id
     productModels.deleteProduct(id)
       .then((result) => {
-        if (result != 'Data Not Found') {
+        if (result != 'Data not found') {
           helpers.response(res, null, result, 200, null)
         } else {
           helpers.response(res, null, result, 404, 'Not Found')
@@ -80,16 +87,23 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    const { name, price, author, rate, condition, description, idCategory } = req.body
+    console.log(req.file.filename[0])
+    const { name, price, color, category, size, brand, author, rate, condition, stock, description, idCategory, idSeller } = req.body
     const data = {
       name,
       image: process.env.BASE_URL + 'uploads/' + req.file.filename,
       price,
+      color,
+      category,
+      size,
+      brand,
       author,
       rate,
       condition,
+      stock,
       description,
-      idCategory
+      idCategory,
+      idSeller
     }
     productModels.insertProduct(data)
       .then((result) => {
