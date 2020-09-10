@@ -3,7 +3,7 @@ const connection = require('../configs/db')
 const products = {
   getProductById: (id) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM category INNER JOIN product ON product.idCategory = category.id WHERE product.id = ?', id, (err, result) => {
+      connection.query('SELECT * FROM category INNER JOIN products ON products.idCategory = category.id WHERE products.id = ?', id, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -20,7 +20,7 @@ const products = {
       let pageProduct = ''
 
       if (search != null) {
-        searchProduct = `WHERE product.name LIKE '%${search}%'`
+        searchProduct = `WHERE products.name LIKE '%${search}%'`
       }
       if (sort != null) {
         if (order != null) {
@@ -37,7 +37,7 @@ const products = {
         }
       }
       if (sort === 'new') {
-        connection.query(`SELECT * FROM category INNER JOIN product ON product.idCategory = category.id INNER JOIN history ON history.idProduct = product.id ${searchProduct} ORDER BY date DESC ${pageProduct}`, (err, result) => {
+        connection.query(`SELECT * FROM category INNER JOIN products ON products.idCategory = category.id INNER JOIN history ON history.idProduct = products.id ${searchProduct} ORDER BY date DESC ${pageProduct}`, (err, result) => {
           if (!err) {
             resolve(result)
           } else {
@@ -45,7 +45,7 @@ const products = {
           }
         })
       } else {
-        connection.query(`SELECT * FROM category INNER JOIN product ON product.idCategory = category.id ${searchProduct} ${sortProduct} ${pageProduct}`, (err, result) => {
+        connection.query(`SELECT * FROM category INNER JOIN products ON products.idCategory = category.id ${searchProduct} ${sortProduct} ${pageProduct}`, (err, result) => {
           if (!err) {
             resolve(result)
           } else {
@@ -58,7 +58,7 @@ const products = {
 
   updateProduct: (id, data) => {
     return new Promise((resolve, reject) => {
-      connection.query('UPDATE product SET ? WHERE id = ?', [data, id], (err, result) => {
+      connection.query('UPDATE products SET ? WHERE id = ?', [data, id], (err, result) => {
         if (!err) {
           resolve('Update Product Success')
         } else {
@@ -69,10 +69,10 @@ const products = {
   },
   deleteProduct: (id) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM product WHERE id = ?', id, (err, result) => {
+      connection.query('SELECT * FROM products WHERE id = ?', id, (err, result) => {
         if (!err) {
           if (result != '') {
-            connection.query('DELETE FROM product WHERE id = ?', id, (err, result) => {
+            connection.query('DELETE FROM products WHERE id = ?', id, (err, result) => {
               if (!err) {
                 resolve('Delete Product Success')
               } else {
@@ -80,7 +80,7 @@ const products = {
               }
             })
           } else {
-            resolve('Data Tidak Ditemukan')
+            resolve('Data Not Found')
           }
         } else {
           reject(new Error(err))
@@ -91,7 +91,7 @@ const products = {
   insertProduct: (data) => {
     console.log(data)
     return new Promise((resolve, reject) => {
-      connection.query('INSERT INTO product SET ?', data, (err, result) => {
+      connection.query('INSERT INTO products SET ?', data, (err, result) => {
         if (!err) {
           resolve('Add Product Success')
         } else {

@@ -1,11 +1,11 @@
-# CoffeeBreak-Back-End
+# BlanjaBarokah - BackEnd
 
 Simple application to CRUD database with node js, Express, and MySql.
 This application use JWT to authentication and authorization.
 
 ## Table of Contents
 
-- [CoffeeBreak-Back-End](#coffeebreak-back-end)
+- [BlanjaBarokah-Back-End](#blanjabarokah-back-end)
   - [Table of Contents](#table-of-contents)
   - [General info](#general-info)
   - [Built With](#built-with)
@@ -62,7 +62,7 @@ $ npm start
 
 ## REST API
 
-You can view my Postman collection [here](https://web.postman.co/collections/11550213-19bd0b36-6926-437b-81b6-008cac8f431d?version=latest&workspace=cc285d8c-f27d-4761-8b8b-c86eda82d08f)
+You can view my Postman collection [here](https://www.postman.com/collections/59a3f0e311b130faae0c)
 or </br>
 
-[![run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/65e37e55e8c3d1a69d55)
+[![run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/59a3f0e311b130faae0c)

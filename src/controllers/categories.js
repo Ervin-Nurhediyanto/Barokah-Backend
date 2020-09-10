@@ -11,7 +11,7 @@ const categories = {
         if (result != '') {
           helpers.response(res, null, result, 200, null)
         } else {
-          helpers.response(res, null, 'Kategori tidak ditemukan', 404, 'Error')
+          helpers.response(res, null, 'Category not found', 404, 'Error')
         }
       })
       .catch((err) => {
@@ -32,7 +32,7 @@ const categories = {
           // client.setex('getallcategory', 60 * 60 * 12, JSON.stringify(result))
           helpers.response(res, page, result, 200, null)
         } else {
-          helpers.response(res, null, 'Kategori tidak ditemukan', 404, 'Error')
+          helpers.response(res, null, 'Category not found', 404, 'Error')
         }
       })
       .catch((err) => {
@@ -59,9 +59,9 @@ const categories = {
     const id = req.params.id
     categoryModels.deleteCategory(id)
       .then((result) => {
-        if (result == 'ID Category Sudah Digunakan') {
+        if (result == 'ID Category is already exsists') {
           helpers.response(res, null, result, 403, 'Forbidden')
-        } else if (result == 'ID Category tidak ditemukan') {
+        } else if (result == 'ID Category not found') {
           helpers.response(res, null, result, 404, 'Not Found')
         } else {
           helpers.response(res, null, result, 200, null)
