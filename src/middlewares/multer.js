@@ -15,13 +15,13 @@ function upload (req, res, next) {
     limits: { fileSize: 1000000 },
     fileFilter: function (req, file, cb) {
       const extFile = path.extname(file.originalname)
-      if (extFile !== '.jpg') {
+      if (extFile !== '.png') {
         cb('jpg Only!', false)
       } else {
         cb(null, true)
       }
     }
-  }).array('image', 2)
+  }).array('image', 6)
 
   uploadFiles(req, res, function (err) {
     if (err) {

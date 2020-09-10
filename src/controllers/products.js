@@ -87,11 +87,10 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    console.log(req.files.length)
     const { name, price, color, category, size, brand, author, rate, condition, stock, description, idCategory, idSeller } = req.body
     const data = {
       name,
-      image: process.env.BASE_URL + 'uploads/' + req.files.map(filename => "" + filename + "").join(""),
+      image: process.env.BASE_URL + 'uploads/' + req.files[0].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[1].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[2].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[3].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[4].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[5].filename,
       price,
       color,
       category,
