@@ -15,7 +15,7 @@ function upload (req, res, next) {
     limits: { fileSize: 1000000 },
     fileFilter: function (req, file, cb) {
       const extFile = path.extname(file.originalname)
-      if (extFile !== '.png') {
+      if (extFile !== '.jpg') {
         cb('jpg Only!', false)
       } else {
         cb(null, true)
