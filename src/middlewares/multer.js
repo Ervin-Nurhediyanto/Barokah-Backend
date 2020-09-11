@@ -21,7 +21,7 @@ function upload (req, res, next) {
         cb(null, true)
       }
     }
-  }).array('image', 2)
+  }).array('image', 6)
 
   uploadFiles(req, res, function (err) {
     if (err) {
