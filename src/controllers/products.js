@@ -50,7 +50,6 @@ const products = {
       brand,
       author,
       rate,
-      chat,
       condition,
       stock,
       description,
@@ -58,8 +57,8 @@ const products = {
       idSeller
     }
 
-    if (req.file) {
-      data.image = process.env.BASE_URL + 'uploads/' + req.file.filename
+    if (req.files) {
+      data.image = process.env.BASE_URL + 'uploads/' + req.files[0].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[1].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[2].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[3].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[4].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[5].filename
     }
 
     productModels.updateProduct(id, data)
@@ -87,11 +86,10 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    console.log(req.file.filename[0])
     const { name, price, color, category, size, brand, author, rate, condition, stock, description, idCategory, idSeller } = req.body
     const data = {
       name,
-      image: process.env.BASE_URL + 'uploads/' + req.file.filename,
+      image: process.env.BASE_URL + 'uploads/' + req.files[0].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[1].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[2].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[3].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[4].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[5].filename,
       price,
       color,
       category,

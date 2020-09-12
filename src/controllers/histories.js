@@ -46,11 +46,11 @@ const histories = {
 
   updateHistory: (req, res) => {
     const id = req.params.id
-    const { idProduct, countItem } = req.body
+    const { idProduct, address, countItem } = req.body
     const data = {
       idProduct,
+      address,
       countItem
-      // date: new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0]
     }
     historyModels.updateHistory(id, data)
       .then((result) => {
@@ -72,9 +72,10 @@ const histories = {
       })
   },
   insertHistory: (req, res) => {
-    const { idProduct, countItem } = req.body
+    const { idProduct, address, countItem } = req.body
     const data = {
       idProduct,
+      address,
       countItem
     }
     historyModels.insertHistory(data)
