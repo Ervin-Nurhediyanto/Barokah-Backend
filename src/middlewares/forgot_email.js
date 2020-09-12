@@ -22,7 +22,7 @@ module.exports = {
           from: process.env.MAILER_EMAIL_ID,
           to: email,
           subject: 'Reset your password',
-          html: '<p>You requested for a password reset, kindly use this <a href="https://github.com/Ervin-Nurhediyanto/Barokah-Frontend/tree/master">link</a> to reset your password</p><br><p>Cheers!</p>'
+          html: '<p>You requested for a password reset, kindly use this <a href=' + process.env.RESET_URL + '>link</a> to reset your password</p><br><p>Cheers!</p>'
         }
 
         transporter.sendMail(mailOptions, (err, info) => {
