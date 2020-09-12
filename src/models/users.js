@@ -18,7 +18,7 @@ module.exports = {
       connection.query('SELECT * FROM users WHERE email = ?', data.email, (err, result) => {
         if (!err) {
           if (result != '') {
-            resolve('email sudah terdaftar')
+            resolve('Email is already exists')
           } else {
             connection.query('INSERT IGNORE INTO users SET ?', data, (err, result) => {
               if (!err) {
@@ -28,6 +28,18 @@ module.exports = {
               }
             })
           }
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+
+  resetPassword: (id, data) => {
+    return new Promise((resolve, reject) => {
+      connection.query('UPDATE users SET ? WHERE id = ?', [data, id], (err, result) => {
+        if (!err) {
+          resolve('Reset Password Success')
         } else {
           reject(new Error(err))
         }
