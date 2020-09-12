@@ -176,5 +176,99 @@ module.exports = {
           })
       })
     })
+  },
+
+  updateUser: (req, res) => {
+    const id = req.params.id
+    const { name, email, gender, dateOfBirth, phoneNumber, storeName, storeDescription, address } = req.body
+
+    const data = {
+      name,
+      email,
+      gender,
+      dateOfBirth,
+      phoneNumber,
+      storeName,
+      storeDescription,
+      address
+    }
+
+    if (req.files) {
+      data.image = process.env.BASE_URL + 'uploads/' + req.files.filename
+    }
+
+    modelUser.updateUser(id, data)
+      .then((result) => {
+        helpers.response(res, null, result, 200, null)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+
+  custommerProfile: (req, res) => {
+    const id = req.params.id
+    const { name, email, phoneNumber, gender, dateOfBirth } = req.body
+
+    const data = {
+      name,
+      email,
+      gender,
+      dateOfBirth,
+      phoneNumber
+    }
+
+    if (req.files) {
+      data.image = process.env.BASE_URL + 'uploads/' + req.files.filename
+    }
+
+    modelUser.updateUser(id, data)
+      .then((result) => {
+        helpers.response(res, null, result, 200, null)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+
+  shippingAddress: (req, res) => {
+    const id = req.params.id
+    const { address } = req.body
+
+    const data = {
+      address
+    }
+
+    modelUser.updateUser(id, data)
+      .then((result) => {
+        helpers.response(res, null, result, 200, null)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+
+  storeProfile: (req, res) => {
+    const id = req.params.id
+    const { storeName, email, phoneNumber, storeDescription } = req.body
+
+    const data = {
+      storeName,
+      email,
+      phoneNumber,
+      storeDescription
+    }
+
+    if (req.files) {
+      data.image = process.env.BASE_URL + 'uploads/' + req.files.filename
+    }
+
+    modelUser.updateUser(id, data)
+      .then((result) => {
+        helpers.response(res, null, result, 200, null)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }

@@ -58,7 +58,9 @@ const products = {
     }
 
     if (req.files) {
-      data.image = process.env.BASE_URL + 'uploads/' + req.files[0].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[1].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[2].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[3].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[4].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[5].filename
+      data.image = req.files.map((item) => {
+        return process.env.BASE_URL + 'uploads/' + item.filename
+      }).join()
     }
 
     productModels.updateProduct(id, data)
@@ -89,7 +91,9 @@ const products = {
     const { name, price, color, category, size, brand, author, rate, condition, stock, description, idCategory, idSeller } = req.body
     const data = {
       name,
-      image: process.env.BASE_URL + 'uploads/' + req.files[0].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[1].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[2].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[3].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[4].filename + ', ' + process.env.BASE_URL + 'uploads/' + req.files[5].filename,
+      image: req.files.map((item) => {
+        return process.env.BASE_URL + 'uploads/' + item.filename
+      }).join(),
       price,
       color,
       category,
@@ -103,6 +107,7 @@ const products = {
       idCategory,
       idSeller
     }
+
     productModels.insertProduct(data)
       .then((result) => {
         helpers.response(res, null, result, 200, null)

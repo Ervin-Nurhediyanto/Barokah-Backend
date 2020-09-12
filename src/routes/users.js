@@ -10,5 +10,8 @@ router
   .post('/login/custommer', userController.loginCustommer)
   .post('/forgotpassword', userForgot.forgotPass)
   .patch('/resetpassword/:id', userController.resetPassword)
+  .patch('/myProfile/:id', userController.custommerProfile)
+  .patch('/shippingAddress/:id', userController.shippingAddress)
+  .patch('/storeProfile/:id', userController.storeProfile)
 
 module.exports = router

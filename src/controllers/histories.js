@@ -30,9 +30,6 @@ const histories = {
     historyModels.getAllhistory(search, sort, order, page, limit, group)
       .then((result) => {
         if (result != '') {
-          // delete result.createdAt
-          // delete result.updatedAt
-          // delete result.password
           // client.setex('getallhistory', 60 * 60 * 12, JSON.stringify(result))
           helpers.response(res, page, result, 200, null)
         } else {
