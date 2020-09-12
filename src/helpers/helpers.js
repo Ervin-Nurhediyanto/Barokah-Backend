@@ -1,5 +1,5 @@
 const helpers = {
-  response: (res, page, result, status, err) => {
+  response: (res, page, result, status, err, message) => {
     const resultPrint = {}
 
     if (status === 201) {
@@ -20,6 +20,10 @@ const helpers = {
       } else {
         resultPrint.totalItem = result.length
       }
+    }
+
+    if (message !== null) {
+      resultPrint.message = message
     }
 
     resultPrint.status_code = status

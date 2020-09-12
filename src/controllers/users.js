@@ -154,5 +154,27 @@ module.exports = {
       .catch((err) => {
         console.log(err)
       })
+  },
+
+  resetPassword: (req, res) => {
+    const id = req.params.id
+    const { password } = req.body
+
+    const data = {
+      password: password
+    }
+
+    bcrypt.genSalt(10, function (_err, salt) {
+      bcrypt.hash(data.password, salt, function (_err, hash) {
+        data.password = hash
+        modelUser.resetPassword(id, data)
+          .then((result) => {
+            helpers.response(res, null, 'Reset Password Success', 201, null)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      })
+    })
   }
 }
