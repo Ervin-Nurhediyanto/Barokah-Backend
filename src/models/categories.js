@@ -36,7 +36,7 @@ const categories = {
     }
     return new Promise((resolve, reject) => {
       if (search != null || sort != null || page != null) {
-        connection.query(`SELECT * FROM product INNER JOIN category ON product.idCategory = category.id ${searchCategory} ${sortCategory} ${pageCategory}`, (err, result) => {
+        connection.query(`SELECT * FROM products INNER JOIN category ON products.idCategory = category.id ${searchCategory} ${sortCategory} ${pageCategory}`, (err, result) => {
           if (!err) {
             resolve(result)
           } else {
@@ -68,7 +68,7 @@ const categories = {
 
   deleteCategory: (id) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM product INNER JOIN category ON product.idCategory = category.id WHERE category.id = ?', id, (err, result) => {
+      connection.query('SELECT * FROM products INNER JOIN category ON products.idCategory = category.id WHERE category.id = ?', id, (err, result) => {
         if (!err) {
           if (result != '') {
             resolve('ID Category Sudah Digunakan')

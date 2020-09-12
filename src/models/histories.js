@@ -49,7 +49,7 @@ const histories = {
         }
       }
 
-      connection.query(`SELECT *, products.price*history.countItem AS 'Total', ${date}, ${day}, ${month}, ${year}, history.id AS 'id'${groupSql} FROM products INNER JOIN category ON products.idCategory = category.id INNER JOIN history ON history.idproduct = products.id INNER JOIN user ON user.id = history.idUser ${searchHistory} ${groupHistory} ${sortHistory} ${pageHistory}`, (err, result) => {
+      connection.query(`SELECT *, products.price*history.countItem AS 'Total', ${date}, ${day}, ${month}, ${year}, history.id AS 'id'${groupSql} FROM products INNER JOIN category ON products.idCategory = category.id INNER JOIN history ON history.idproduct = products.id INNER JOIN users ON users.id = history.idUser ${searchHistory} ${groupHistory} ${sortHistory} ${pageHistory}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Sep 2020 pada 10.15
+-- Waktu pembuatan: 11 Sep 2020 pada 15.17
 -- Versi server: 10.4.14-MariaDB
 -- Versi PHP: 7.4.9
 
@@ -45,15 +45,46 @@ INSERT INTO `category` (`id`, `nameCategory`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `chat` varchar(256) NOT NULL,
+  `idProduct` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `chat`
+--
+
+INSERT INTO `chat` (`id`, `chat`, `idProduct`) VALUES
+(1, 'haihai', 1),
+(2, 'haiiiihaiiihello', 4),
+(4, 'hello world baru', 1),
+(5, 'haiiiihaiiihello', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `history`
 --
 
 CREATE TABLE `history` (
   `id` int(11) NOT NULL,
   `idProduct` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `countItem` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `history`
+--
+
+INSERT INTO `history` (`id`, `idProduct`, `idUser`, `countItem`, `date`) VALUES
+(1, 2, 1, 150000, '2020-09-11 12:26:03'),
+(3, 3, 1, 200000, '2020-09-11 12:26:49');
 
 -- --------------------------------------------------------
 
@@ -85,10 +116,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `image`, `price`, `color`, `category`, `size`, `brand`, `author`, `rate`, `chat`, `condition`, `stock`, `description`, `idCategory`, `idSeller`) VALUES
-(1, 'Men\'s formal suit - Black & White', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQj6deO2OE3dF_1tMehUn5IFkKhi3IJqI7aEw&usqp=CAU', 40000, 'black', 'man', 28, 'adidas', 'Zalora Cloth', 10, '', 'New', 10, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat.', 1, 0),
-(2, 'Woman\'s formal suit - Black & White', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQj6deO2OE3dF_1tMehUn5IFkKhi3IJqI7aEw&usqp=CAU', 80000, 'pink', 'woman', 24, 'nevada', 'Zalora Cloth', 10, '', 'New', 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat.', 1, 1),
-(3, 'Woman\'s formal suit - Black & White 2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQj6deO2OE3dF_1tMehUn5IFkKhi3IJqI7aEw&usqp=CAU', 80000, 'red', 'woman', 27, 'nevada', 'Zalora Cloth', 10, '', 'New', 20, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat.', 1, 1),
-(4, 'Men\'s formal suit - Black & White 2', 'http://localhost:4000/uploads/1599668062484-jas1.jpg', 50000, 'white, black', 'man', 35, 'Nevada', 'Matahari', 10, '', 'New', 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat.', 2, 1);
+(1, 'T-Shirt Baru ', 'http://localhost:4000/uploads/1599826902810-img4.png, http://localhost:4000/uploads/1599826903088-img5.png, http://localhost:4000/uploads/1599826903106-img6.png, http://localhost:4000/uploads/1599826903120-img7.png, http://localhost:4000/uploads/1599826903', 100000, 'gray, purple, blue dark', 'man', 30, 'Pull & Bear', 'Barokah Shope', 10, '', 'New', 10, 'Lorem ipsum', 1, 2),
+(2, 'T-Shirt Long & Short 2', 'http://localhost:4000/uploads/1599826317265-img1.png, http://localhost:4000/uploads/1599826317296-img2.png, http://localhost:4000/uploads/1599826317501-img3.png, http://localhost:4000/uploads/1599826317558-img4.png, http://localhost:4000/uploads/1599826317', 70000, 'black, blue, red, pink', 'woman', 26, 'Pull & Bear', 'Barokah Shope', 10, '', 'New', 12, 'Lorem ipsum', 1, 1),
+(3, 'T-Shirt Long & Short 3', 'http://localhost:4000/uploads/1599826323990-img1.png, http://localhost:4000/uploads/1599826324158-img2.png, http://localhost:4000/uploads/1599826324175-img3.png, http://localhost:4000/uploads/1599826324182-img4.png, http://localhost:4000/uploads/1599826324', 70000, 'black, blue, red, pink', 'woman', 26, 'Pull & Bear', 'Barokah Shope', 10, '', 'New', 12, 'Lorem ipsum', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -115,8 +146,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `roleId`, `name`, `email`, `image`, `gender`, `dateOfBirth`, `phoneNumber`, `storeName`, `storeDescription`, `password`, `address`) VALUES
-(1, 1, 'barokah', 'barokah@gmail.com', '', 0, '0000-00-00', 2147483647, 'Barokah Shop', '', '$2a$10$RuSVcPqMgiZ96/oq7OYiCumWy12pknY8jdSfPojL7Dwb01oIuFyb6', ''),
-(2, 2, 'putri', 'put@gmail.com', '', 0, '0000-00-00', 0, '', '', '$2a$10$TmcM42mdw6rXm8qgj1Dnh./8N/caYYoSmxGC9qOtXQAAnKGHfXI0u', '');
+(1, 2, 'putri', 'putri@gmail.com', '', 0, '0000-00-00', 0, '', '', '$2a$10$W3PEfY4UqCJin2SzYfzxpu1JxItfCcMLvB2znxWS4/eW7L/gc6kHy', ''),
+(2, 1, 'barokah', 'barokah@gmail.com', '', 0, '0000-00-00', 2147483647, 'Blanja-Barokah', '', '$2a$10$lsIwt5TSsrxbCDFgqcwn8.ETwzo7Af7VzY3rLVrRAKPcCoKdV4l1S', '');
 
 --
 -- Indexes for dumped tables
@@ -126,6 +157,12 @@ INSERT INTO `users` (`id`, `roleId`, `name`, `email`, `image`, `gender`, `dateOf
 -- Indeks untuk tabel `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `chat`
+--
+ALTER TABLE `chat`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -154,13 +191,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `products`
@@ -172,7 +215,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
